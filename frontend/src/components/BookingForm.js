@@ -9,10 +9,15 @@ import {
   DialogTitle,
   Dialog,
   Button,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { createBooking, updateBooking } from '../actions/bookingActions';
+import { fetchDoctors } from '../actions/doctorActions';
 
 const useStyles = makeStyles((theme) => ({
   file: {
@@ -22,15 +27,18 @@ const useStyles = makeStyles((theme) => ({
 
 const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
   const dispatch = useDispatch();
-  const classes = useStyles();
+  //const classes = useStyles();
 
   const initialState = {
-    name: '',
+    doctor: 0,
+    clinic: 0,
+    bookingId: '',
+    bookingType: 0,
+    firstName: '',
+    lastName: '',
     email: '',
-    phoneNo1: '',
-    phoneNo2: '',
+    phoneNo: '',
     address: '',
-    selectedImage: '',
   };
 
   const [bookingData, setBookingData] = useState(initialState);
@@ -40,13 +48,14 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
   );
 
   useEffect(() => {
-    if (bookingDetails) setBookingData(bookingDetails);
+    if (bookingDetails) {setBookingData(bookingDetails);}else{setBookingData(initialState);}
   }, [bookingDetails]);
 
   const clearData = () => {
     setBookingData(initialState);
     setCurrentId(0);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     handleClose();
@@ -54,6 +63,9 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
     else dispatch(updateBooking(currentId, bookingData));
     clearData();
   };
+
+  const doctors = useSelector((state) => state.doctors);
+  console.log(doctors);
 
   return (
     <Dialog
@@ -69,16 +81,86 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
           } your booking details from here`}
         </DialogContentText>
 
+        <FormControl fullWidth>
+          <InputLabel id='doctor-label'>Doctor</InputLabel>  
+          <Select 
+            labelId='doctor-label'
+            id='doctor'
+            label='Doctor'
+            fullWidth
+            defaultValue={0}
+            value={bookingData.doctor}
+            onChange={(e) =>
+              setBookingData({ ...bookingData, doctor: e.target.value })
+            }
+          >
+            <MenuItem value={0}>Select Doctor</MenuItem>  
+            {doctors.map(({_id, name}, index) => (
+              <MenuItem key={index} value={_id}>
+                {name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl fullWidth>
+          <TextField
+            autoFocus
+            margin='dense'
+            id='bookingId'
+            label='Booking ID'
+            type='text'
+            fullWidth
+            value={bookingData.bookingId}
+            onChange={(e) =>
+              setBookingData({ ...bookingData, bookingId: e.target.value })
+            }
+          />
+        </FormControl>
+        <FormControl fullWidth>
+          <InputLabel id='booking-type-label'>Booking Type</InputLabel>
+          <Select 
+            labelId='booking-type-label'
+            id='bookingType'
+            label='Booking Type'
+            fullWidth
+            defaultValue={0}
+            value={bookingData.bookingType}
+            onChange={(e) =>
+              setBookingData({ ...bookingData, bookingType: e.target.value })
+            }
+          >
+            <MenuItem value={0}>Select Booking Type</MenuItem>  
+            <MenuItem value={1}>Echo</MenuItem>  
+            <MenuItem value={2}>ECG</MenuItem>  
+            <MenuItem value={3}>Holter Off</MenuItem> 
+            <MenuItem value={4}>ABP Off</MenuItem> 
+            <MenuItem value={5}>CPAP Follow Up</MenuItem> 
+            <MenuItem value={6}>Miscellanous</MenuItem> 
+            <MenuItem value={7}>Remote Follow Up</MenuItem> 
+          </Select>
+        </FormControl>
         <TextField
           autoFocus
           margin='dense'
-          id='name'
-          label='Good Name'
+          id='firstName'
+          label='First Name'
           type='text'
           fullWidth
-          value={bookingData.name}
+          value={bookingData.firstName}
           onChange={(e) =>
-            setBookingData({ ...bookingData, name: e.target.value })
+            setBookingData({ ...bookingData, firstName: e.target.value })
+          }
+        />
+        <TextField
+          autoFocus
+          margin='dense'
+          id='lastName'
+          label='Last Name'
+          type='text'
+          fullWidth
+          value={bookingData.lastName}
+          onChange={(e) =>
+            setBookingData({ ...bookingData, lastName: e.target.value })
           }
         />
         <TextField
@@ -96,25 +178,13 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
         <TextField
           autoFocus
           margin='dense'
-          id='phn1'
+          id='phoneNo'
           label='Phone Number'
           type='number'
           fullWidth
-          value={bookingData.phoneNo1}
+          value={bookingData.phoneNo}
           onChange={(e) =>
-            setBookingData({ ...bookingData, phoneNo1: e.target.value })
-          }
-        />
-        <TextField
-          autoFocus
-          margin='dense'
-          id='phn2'
-          label='Alternative Phone Number'
-          type='number'
-          fullWidth
-          value={bookingData.phoneNo2}
-          onChange={(e) =>
-            setBookingData({ ...bookingData, phoneNo2: e.target.value })
+            setBookingData({ ...bookingData, phoneNo: e.target.value })
           }
         />
         <TextField
@@ -129,15 +199,6 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
             setBookingData({ ...bookingData, address: e.target.value })
           }
         />
-        <div className={classes.file}>
-          <FileBase
-            type='file'
-            multiple={false}
-            onDone={({ base64 }) =>
-              setBookingData({ ...bookingData, selectedImage: base64 })
-            }
-          />
-        </div>
       </DialogContent>
       <DialogActions>
         <Button color='secondary' onClick={handleClose}>

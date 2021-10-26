@@ -1,12 +1,22 @@
 import mongoose from 'mongoose';
 
 const bookingSchema = mongoose.Schema({
-  name: String,
+  doctor: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Doctor',
+  },
+  clinic: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Clinic',
+  },
+  bookingId: String,
+  firstName: String,
+  lastName: String,
   email: String,
-  phoneNo1: String,
-  phoneNo2: String,
+  phoneNo: String,
   address: String,
-  selectedImage: String,
   createdAt: {
     type: Date,
     default: new Date(),
