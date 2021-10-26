@@ -4,11 +4,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { contactReducer } from './reducers/contactReducer';
 import { doctorReducer } from './reducers/doctorReducer';
+import { clinicReducer } from './reducers/clinicReducer';
 import { authReducer } from './reducers/authReducer';
 
 const reducers = combineReducers({
   contacts: contactReducer,
   doctors: doctorReducer,
+  clinics: clinicReducer,
   userLogin: authReducer,
 });
 

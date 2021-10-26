@@ -1,22 +1,13 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
-//import ContactForm from '../components/ContactForm';
 import BookingForm from '../components/BookingForm';
-import DoctorForm from '../components/DoctorForm';
-//import ClinicForm from '../components/ClinicForm';
-//import ContactTable from '../components/ContactTable';
-import DoctorTable from '../components/DoctorTable';
 import BookingTable from '../components/BookingTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts } from '../actions/contactActions';
-import { fetchDoctors } from '../actions/doctorActions';
+import { fetchBookings } from '../actions/bookingActions';
 
 const Booking = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [openDoctor, setOpenDoctor] = useState(false);
-  //const [openDoctorTable, setOpenDoctorTable] = useState(false);
-  const [openClinic, setOpenClinic] = useState(false);
   const [currentId, setCurrentId] = useState(0);
 
   const handleClickOpen = () => {
@@ -28,17 +19,15 @@ const Booking = () => {
   };
 
   const handleClinicOpen = () => {
-    setOpenClinic(true);
+    document.location.href = '/clinic';
   };
 
   const handleClose = () => {
     setOpen(false);
-    setOpenDoctor(false);
-    setOpenClinic(false);
   };
 
   useState(() => {
-    dispatch(fetchContacts());
+    dispatch(fetchBookings());
   }, [dispatch]);
 
   const userLogin = useSelector((state) => state.userLogin);

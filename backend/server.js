@@ -3,12 +3,14 @@ import connectDB from './config/db.js';
 connectDB();
 
 import doctorRoutes from './router/doctor.js';
+import clinicRoutes from './router/clinic.js';
 import contactRoutes from './router/contact.js';
 import authRoutes from './router/auth.js';
 const app = express();
 
 app.use(express.json({ limit: '50mb' }));
 app.use('/doctor', doctorRoutes);
+app.use('/clinic', clinicRoutes);
 app.use('/booking', contactRoutes);
 app.use('/auth', authRoutes);
 

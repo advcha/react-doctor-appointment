@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import DoctorForm from '../components/DoctorForm';
-import DoctorTable from '../components/DoctorTable';
+import ClinicForm from '../components/ClinicForm';
+import ClinicTable from '../components/ClinicTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDoctors } from '../actions/clinicActions';
+import { fetchClinics } from '../actions/clinicActions';
 
 const Clinic = () => {
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
-  const [openDoctor, setOpenDoctor] = useState(false);
   const [openClinic, setOpenClinic] = useState(false);
   const [currentId, setCurrentId] = useState(0);
 
@@ -17,21 +15,19 @@ const Clinic = () => {
   };
 
   const handleDoctorOpen = () => {
-    setOpenDoctor(true);
+    document.location.href = '/doctor';
   };
 
   const handleClinicOpen = () => {
-    document.location.href = '/clinic';
+    setOpenClinic(true);
   };
 
   const handleClose = () => {
-    //setOpen(false);
-    setOpenDoctor(false);
-    //setOpenClinic(false);
+    setOpenClinic(false);
   };
 
   useState(() => {
-    dispatch(fetchDoctors());
+    dispatch(fetchClinics());
   }, [dispatch]);
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -40,14 +36,13 @@ const Clinic = () => {
   return (
     <div>
       <Header userInfo={userInfo} />
-      <DoctorForm
-        open={openDoctor}
+      <ClinicForm
+        open={openClinic}
         handleClose={handleClose}
         currentId={currentId}
         setCurrentId={setCurrentId}
       />
-      <DoctorTable
-        open={open}
+      <ClinicTable
         handleClose={handleClose}
         handleClickOpen={handleClickOpen}
         handleDoctorOpen={handleDoctorOpen}
@@ -58,4 +53,4 @@ const Clinic = () => {
   );
 };
 
-export default Doctor;
+export default Clinic;
