@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { createContact, updateContact } from '../actions/contactActions';
+import { createBooking, updateBooking } from '../actions/bookingActions';
 
 const useStyles = makeStyles((theme) => ({
   file: {
@@ -33,25 +33,25 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
     selectedImage: '',
   };
 
-  const [contactData, setContactData] = useState(initialState);
+  const [bookingData, setBookingData] = useState(initialState);
 
-  const contactDetails = useSelector((state) =>
-    currentId ? state.contacts.find((c) => c._id === currentId) : null
+  const bookingDetails = useSelector((state) =>
+    currentId ? state.bookings.find((c) => c._id === currentId) : null
   );
 
   useEffect(() => {
-    if (contactDetails) setContactData(contactDetails);
-  }, [contactDetails]);
+    if (bookingDetails) setBookingData(bookingDetails);
+  }, [bookingDetails]);
 
   const clearData = () => {
-    setContactData(initialState);
+    setBookingData(initialState);
     setCurrentId(0);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     handleClose();
-    if (currentId === 0) dispatch(createContact(contactData));
-    else dispatch(updateContact(currentId, contactData));
+    if (currentId === 0) dispatch(createBooking(bookingData));
+    else dispatch(updateBooking(currentId, bookingData));
     clearData();
   };
 
@@ -76,9 +76,9 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
           label='Good Name'
           type='text'
           fullWidth
-          value={contactData.name}
+          value={bookingData.name}
           onChange={(e) =>
-            setContactData({ ...contactData, name: e.target.value })
+            setBookingData({ ...bookingData, name: e.target.value })
           }
         />
         <TextField
@@ -88,9 +88,9 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
           label='Email Address'
           type='email'
           fullWidth
-          value={contactData.email}
+          value={bookingData.email}
           onChange={(e) =>
-            setContactData({ ...contactData, email: e.target.value })
+            setBookingData({ ...bookingData, email: e.target.value })
           }
         />
         <TextField
@@ -100,9 +100,9 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
           label='Phone Number'
           type='number'
           fullWidth
-          value={contactData.phoneNo1}
+          value={bookingData.phoneNo1}
           onChange={(e) =>
-            setContactData({ ...contactData, phoneNo1: e.target.value })
+            setBookingData({ ...bookingData, phoneNo1: e.target.value })
           }
         />
         <TextField
@@ -112,9 +112,9 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
           label='Alternative Phone Number'
           type='number'
           fullWidth
-          value={contactData.phoneNo2}
+          value={bookingData.phoneNo2}
           onChange={(e) =>
-            setContactData({ ...contactData, phoneNo2: e.target.value })
+            setBookingData({ ...bookingData, phoneNo2: e.target.value })
           }
         />
         <TextField
@@ -124,9 +124,9 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
           label='Your Address'
           type='text'
           fullWidth
-          value={contactData.address}
+          value={bookingData.address}
           onChange={(e) =>
-            setContactData({ ...contactData, address: e.target.value })
+            setBookingData({ ...bookingData, address: e.target.value })
           }
         />
         <div className={classes.file}>
@@ -134,7 +134,7 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
             type='file'
             multiple={false}
             onDone={({ base64 }) =>
-              setContactData({ ...contactData, selectedImage: base64 })
+              setBookingData({ ...bookingData, selectedImage: base64 })
             }
           />
         </div>
@@ -144,7 +144,7 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
           Close
         </Button>
         <Button color='primary' onClick={handleSubmit}>
-          {`${currentId === 0 ? 'Add' : 'Update'} Contact`}
+          {`${currentId === 0 ? 'Add' : 'Update'} Booking`}
         </Button>
       </DialogActions>
     </Dialog>
