@@ -24,13 +24,7 @@ const Booking = () => {
   };
 
   const handleDoctorOpen = () => {
-    //setOpenDoctor(true);
-    //document.location.href = '/doctor';
-    dispatch(fetchDoctors());
     document.location.href = '/doctor';
-    /*e.preventDefault();
-    console.log('Ok');
-    dispatch(logout());*/
   };
 
   const handleClinicOpen = () => {
@@ -59,22 +53,8 @@ const Booking = () => {
         currentId={currentId}
         setCurrentId={setCurrentId}
       />
-      <DoctorForm
-        open={openDoctor}
-        handleClose={handleClose}
-        currentId={currentId}
-        setCurrentId={setCurrentId}
-      />
       <BookingTable
         open={open}
-        handleClose={handleClose}
-        handleClickOpen={handleClickOpen}
-        handleDoctorOpen={handleDoctorOpen}
-        handleClinicOpen={handleClinicOpen}
-        setCurrentId={setCurrentId}
-      />
-      <DoctorTable
-        open={openDoctor}
         handleClose={handleClose}
         handleClickOpen={handleClickOpen}
         handleDoctorOpen={handleDoctorOpen}

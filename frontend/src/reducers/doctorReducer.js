@@ -7,6 +7,7 @@ import {
 } from '../constants/doctorConstants';
 
 export const doctorReducer = (doctors = [], action) => {
+  console.log(action.type);
   switch (action.type) {
     case DOCTOR_FETCH_ALL:
       return action.payload;

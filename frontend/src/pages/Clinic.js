@@ -3,11 +3,13 @@ import Header from '../components/Header';
 import DoctorForm from '../components/DoctorForm';
 import DoctorTable from '../components/DoctorTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDoctors } from '../actions/doctorActions';
+import { fetchDoctors } from '../actions/clinicActions';
 
-const Doctor = () => {
+const Clinic = () => {
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
   const [openDoctor, setOpenDoctor] = useState(false);
+  const [openClinic, setOpenClinic] = useState(false);
   const [currentId, setCurrentId] = useState(0);
 
   const handleClickOpen = () => {
@@ -23,7 +25,9 @@ const Doctor = () => {
   };
 
   const handleClose = () => {
+    //setOpen(false);
     setOpenDoctor(false);
+    //setOpenClinic(false);
   };
 
   useState(() => {
@@ -43,6 +47,7 @@ const Doctor = () => {
         setCurrentId={setCurrentId}
       />
       <DoctorTable
+        open={open}
         handleClose={handleClose}
         handleClickOpen={handleClickOpen}
         handleDoctorOpen={handleDoctorOpen}

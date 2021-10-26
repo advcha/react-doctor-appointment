@@ -35,19 +35,25 @@ const DoctorForm = ({ currentId, setCurrentId, open, handleClose }) => {
   };
 
   const [doctorData, setDoctorData] = useState(initialState);
-
+  
   const doctorDetails = useSelector((state) =>
     currentId ? state.doctors.find((d) => d._id === currentId) : null
   );
 
+
   useEffect(() => {
-    if (doctorDetails) setDoctorData(doctorDetails);
+    if (doctorDetails){ 
+      setDoctorData(doctorDetails);
+    }else{
+      setDoctorData(initialState);
+    }
   }, [doctorDetails]);
 
   const clearData = () => {
     setDoctorData(initialState);
     setCurrentId(0);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     handleClose();
