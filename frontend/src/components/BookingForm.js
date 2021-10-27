@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import FileBase from 'react-file-base64';
+import moment from 'moment';
+//import FileBase from 'react-file-base64';
 import {
   DialogActions,
   TextField,
@@ -32,8 +33,8 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
   //const classes = useStyles();
 
   const initialState = {
-    doctor: 0,
-    clinic: 0,
+    doctor: {_id:0},
+    clinic: {_id:0},
     bookingId: '',
     bookingType: '',
     firstName: '',
@@ -57,7 +58,17 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
   const clinics = useSelector((state) => state.clinics);
 
   useEffect(() => {
-    if (bookingDetails) {setBookingData(bookingDetails);}else{setBookingData(initialState);}
+    if (bookingDetails) {
+      /*if (bookingDetails.doctor._id !== undefined && bookingDetails.clinic._id !== undefined) {
+        const doctorId = bookingDetails.doctor._id;
+        const clinicId = bookingDetails.clinic._id;
+        bookingDetails.doctor = doctorId;
+        bookingDetails.clinic = clinicId;
+      }*/
+      setBookingData(bookingDetails);
+    } else {
+      setBookingData(initialState);
+    }
   }, [bookingDetails]);
 
   useState(() => {
@@ -87,14 +98,13 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
       <DialogTitle id='form-dialog-title'>Booking Details</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {`To ${
-            currentId === 0 ? 'add' : 'update'
-          } your booking details from here`}
+          {`To ${currentId === 0 ? 'add' : 'update'
+            } your booking details from here`}
         </DialogContentText>
 
         <FormControl fullWidth>
-          <InputLabel id='doctor-label'>Doctor</InputLabel>  
-          <Select 
+          <InputLabel id='doctor-label'>Doctor</InputLabel>
+          <Select
             labelId='doctor-label'
             id='doctor'
             label='Doctor'
@@ -102,11 +112,11 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
             defaultValue={0}
             value={bookingData.doctor._id}
             onChange={(e) =>
-              setBookingData({ ...bookingData, doctor: e.target.value })
+              setBookingData({ ...bookingData, doctor: {_id:e.target.value} })
             }
           >
-            <MenuItem value={0}>Select Doctor</MenuItem>  
-            {doctors.map(({_id, name}, index) => (
+            <MenuItem value={0}>Select Doctor</MenuItem>
+            {doctors.map(({ _id, name }, index) => (
               <MenuItem key={index} value={_id}>
                 {name}
               </MenuItem>
@@ -114,8 +124,8 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
           </Select>
         </FormControl>
         <FormControl fullWidth>
-          <InputLabel id='clinic-label'>Clinic</InputLabel>  
-          <Select 
+          <InputLabel id='clinic-label'>Clinic</InputLabel>
+          <Select
             labelId='clinic-label'
             id='clinic'
             label='Clinic'
@@ -123,11 +133,11 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
             defaultValue={0}
             value={bookingData.clinic._id}
             onChange={(e) =>
-              setBookingData({ ...bookingData, clinic: e.target.value })
+              setBookingData({ ...bookingData, clinic: {_id:e.target.value} })
             }
           >
-            <MenuItem value={0}>Select Clinic</MenuItem>  
-            {clinics.map(({_id, name}, index) => (
+            <MenuItem value={0}>Select Clinic</MenuItem>
+            {clinics.map(({ _id, name }, index) => (
               <MenuItem key={index} value={_id}>
                 {name}
               </MenuItem>
@@ -150,7 +160,7 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
         </FormControl>
         <FormControl fullWidth>
           <InputLabel id='booking-type-label'>Booking Type</InputLabel>
-          <Select 
+          <Select
             labelId='booking-type-label'
             id='bookingType'
             label='Booking Type'
@@ -161,14 +171,14 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
               setBookingData({ ...bookingData, bookingType: e.target.value })
             }
           >
-            <MenuItem value={0}>Select Booking Type</MenuItem>  
-            <MenuItem value='Echo'>Echo</MenuItem>  
-            <MenuItem value='ECG'>ECG</MenuItem>  
-            <MenuItem value='Holter Off'>Holter Off</MenuItem> 
-            <MenuItem value='ABP Off'>ABP Off</MenuItem> 
-            <MenuItem value='CPAP Follow Up'>CPAP Follow Up</MenuItem> 
-            <MenuItem value='Miscellanous'>Miscellanous</MenuItem> 
-            <MenuItem value='Remote Follow Up'>Remote Follow Up</MenuItem> 
+            <MenuItem value={0}>Select Booking Type</MenuItem>
+            <MenuItem value='Echo'>Echo</MenuItem>
+            <MenuItem value='ECG'>ECG</MenuItem>
+            <MenuItem value='Holter Off'>Holter Off</MenuItem>
+            <MenuItem value='ABP Off'>ABP Off</MenuItem>
+            <MenuItem value='CPAP Follow Up'>CPAP Follow Up</MenuItem>
+            <MenuItem value='Miscellanous'>Miscellanous</MenuItem>
+            <MenuItem value='Remote Follow Up'>Remote Follow Up</MenuItem>
           </Select>
         </FormControl>
         <TextField
@@ -245,7 +255,7 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
         />
         <FormControl fullWidth>
           <InputLabel id='gender-label'>Gender</InputLabel>
-          <Select 
+          <Select
             labelId='gender-label'
             id='gender'
             label='Gender'
@@ -256,9 +266,9 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
               setBookingData({ ...bookingData, gender: e.target.value })
             }
           >
-            <MenuItem value={0}>Select Gender</MenuItem>  
-            <MenuItem value='Male'>Male</MenuItem>  
-            <MenuItem value='Female'>Female</MenuItem>  
+            <MenuItem value={0}>Select Gender</MenuItem>
+            <MenuItem value='Male'>Male</MenuItem>
+            <MenuItem value='Female'>Female</MenuItem>
           </Select>
         </FormControl>
         <FormControl fullWidth>
@@ -266,12 +276,13 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
             id='bookingDateTime'
             label='Next appointment'
             type='datetime-local'
-            defaultValue={new Date()}
             sx={{ width: 300 }}
             InputLabelProps={{
               shrink: true,
             }}
-            value={bookingData.bookingDateTime}
+            defaultValue={
+              bookingData.bookingDateTime ? moment(bookingData.bookingDateTime).format('YYYY-MM-DDTHH:mm') : moment().format('YYYY-MM-DDTHH:mm')
+            }
             onChange={(e) =>
               setBookingData({ ...bookingData, bookingDateTime: e.target.value })
             }
@@ -281,13 +292,12 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
           <TextareaAutosize
             id='bookingNotes'
             aria-label='minimum height'
-            minRows={4}
-            maxRows={4}
             placeholder='Problem'
-            value={bookingData.bookingNotes}
+            defaultValue={bookingData.bookingNotes}
             onChange={(e) =>
               setBookingData({ ...bookingData, bookingNotes: e.target.value })
             }
+            style={{ minHeight: 50 }}
           />
         </FormControl>
       </DialogContent>

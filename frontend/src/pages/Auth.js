@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { GoogleLogin } from 'react-google-login';
-import Icon from '../components/Icon';
+//import { GoogleLogin } from 'react-google-login';
+//import Icon from '../components/Icon';
 import {
   Container,
   Avatar,
@@ -72,6 +72,7 @@ const Auth = ({ history }) => {
     }
   }, [history, userInfo]);
 
+  /*
   const googleSuccess = async (res) => {
     console.log(res);
     const result = res?.profileObj;
@@ -93,6 +94,7 @@ const Auth = ({ history }) => {
   const googleFaliure = () => {
     console.log('Google Sign In Unsuccessful. Try Again Later');
   };
+  */
 
   const handleSubmit = (e) => {
     e.preventDefault();

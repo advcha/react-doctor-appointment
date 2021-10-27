@@ -86,8 +86,9 @@ const updateBooking = asyncHandler(async (req, res) => {
   existBooking.bookingNotes = bookingNotes || existBooking.bookingNotes;
 
   const updatedBooking = await existBooking.save();
-
-  res.json(updatedBooking);
+  const bookings = await Booking.findOne({_id:id}).populate(['doctor', 'clinic']);
+  //res.json(updatedBooking);
+  res.json(bookings);
 });
 
 export {

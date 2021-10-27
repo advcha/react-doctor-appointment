@@ -42,11 +42,7 @@ const DoctorForm = ({ currentId, setCurrentId, open, handleClose }) => {
 
 
   useEffect(() => {
-    if (doctorDetails){ 
-      setDoctorData(doctorDetails);
-    }else{
-      setDoctorData(initialState);
-    }
+    if (doctorDetails){setDoctorData(doctorDetails);}else{setDoctorData(initialState);}
   }, [doctorDetails]);
 
   const clearData = () => {

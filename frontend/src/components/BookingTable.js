@@ -7,6 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import MaterialTable from 'material-table';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteBooking, deleteBookings } from '../actions/bookingActions';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -93,7 +94,7 @@ const BookingTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, set
               title: 'Booking Date', 
               field: 'bookingDateTime',
               render: (rowData) => (
-                (new Date(rowData.bookingDateTime)).toUTCString()
+                moment(rowData.bookingDateTime).format('MMM Do YYYY, h:mm A')
               ), 
             },
             { 

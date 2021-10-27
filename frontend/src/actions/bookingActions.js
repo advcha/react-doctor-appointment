@@ -95,7 +95,6 @@ export const updateBooking = (id, form) => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.put(`/booking/${id}`, form, config);
-    console.log(data);
     dispatch({ type: BOOKING_UPDATE, payload: data });
   } catch (error) {
     console.log(error);

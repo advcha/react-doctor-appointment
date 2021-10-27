@@ -41,11 +41,7 @@ const ClinicForm = ({ currentId, setCurrentId, open, handleClose }) => {
 
 
   useEffect(() => {
-    if (clinicDetails){ 
-      setClinicData(clinicDetails);
-    }else{
-      setClinicData(initialState);
-    }
+    if (clinicDetails){setClinicData(clinicDetails);}else{setClinicData(initialState);}
   }, [clinicDetails]);
 
   const clearData = () => {
