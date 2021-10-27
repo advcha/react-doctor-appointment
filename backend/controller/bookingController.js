@@ -1,31 +1,43 @@
 import asyncHandler from 'express-async-handler';
 import mongoose from 'mongoose';
 import Booking from '../model/bookingModel.js';
+import Doctor from '../model/doctorModel.js';
+import Clinic from '../model/clinicModel.js';
 
 const createBooking = asyncHandler(async (req, res) => {
-  const { name, email, phoneNo1, phoneNo2, address, selectedImage } = req.body;
+  const { doctor, clinic, bookingId, bookingType, firstName, lastName, email, phoneNo, address, age, gender, bookingDateTime, bookingNotes } = req.body;
 
   console.log(req.body);
 
   const newBooking = new Booking({
-    name,
+    doctor,
+    clinic,
+    bookingId,
+    bookingType,
+    firstName,
+    lastName,
     email,
-    phoneNo1,
-    phoneNo2,
+    phoneNo,
     address,
-    selectedImage,
+    age,
+    gender,
+    bookingDateTime,
+    bookingNotes,
   });
 
   try {
-    await newBooking.save();
-    res.status(201).json(newBooking);
+    const createdBooking = await newBooking.save();
+    const bookings = await Booking.findOne({_id:createdBooking._id}).populate(['doctor', 'clinic']);
+    //res.status(201).json(newBooking);
+    res.status(201).json(bookings);
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
 });
 
 const getBookings = asyncHandler(async (req, res) => {
-  const bookings = await Booking.find();
+  //const bookings = await Booking.find();
+  const bookings = await Booking.find().populate(['doctor', 'clinic']);
   res.json(bookings);
 });
 
@@ -53,18 +65,25 @@ const deleteMultiBookings = asyncHandler(async (req, res) => {
 
 const updateBooking = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { name, email, phoneNo1, phoneNo2, address, selectedImage } = req.body;
+  const { doctor, clinic, bookingId, bookingType, firstName, lastName, email, phoneNo, address, age, gender, bookingDateTime, bookingNotes } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No Booking with id: ${id}`);
 
   const existBooking = await Booking.findById(id);
-  existBooking.name = name || existBooking.name;
+  existBooking.doctor = doctor || existBooking.doctor;
+  existBooking.clinic = clinic || existBooking.clinic;
+  existBooking.bookingId = bookingId || existBooking.bookingId;
+  existBooking.bookingType = bookingType || existBooking.bookingType;
+  existBooking.firstName = firstName || existBooking.firstName;
+  existBooking.lastName = lastName || existBooking.lastName;
   existBooking.email = email || existBooking.email;
-  existBooking.phoneNo1 = phoneNo1 || existBooking.phoneNo1;
-  existBooking.phoneNo2 = phoneNo2 || existBooking.phoneNo2;
+  existBooking.phoneNo = phoneNo || existBooking.phoneNo;
   existBooking.address = address || existBooking.address;
-  existBooking.selectedImage = selectedImage || existBooking.selectedImage;
+  existBooking.age = age || existBooking.age;
+  existBooking.gender = gender || existBooking.gender;
+  existBooking.bookingDateTime = bookingDateTime || existBooking.bookingDateTime;
+  existBooking.bookingNotes = bookingNotes || existBooking.bookingNotes;
 
   const updatedBooking = await existBooking.save();
 

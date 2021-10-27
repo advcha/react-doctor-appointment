@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = (userInfo) => {
-  console.log(userInfo.userInfo);
   const classes = useStyles();
   const dispatch = useDispatch();
 

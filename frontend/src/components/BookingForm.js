@@ -13,11 +13,13 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  TextareaAutosize,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { createBooking, updateBooking } from '../actions/bookingActions';
 import { fetchDoctors } from '../actions/doctorActions';
+import { fetchClinics } from '../actions/clinicActions';
 
 const useStyles = makeStyles((theme) => ({
   file: {
@@ -33,12 +35,16 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
     doctor: 0,
     clinic: 0,
     bookingId: '',
-    bookingType: 0,
+    bookingType: '',
     firstName: '',
     lastName: '',
     email: '',
     phoneNo: '',
     address: '',
+    age: '',
+    gender: '',
+    bookingDateTime: '',
+    bookingNotes: '',
   };
 
   const [bookingData, setBookingData] = useState(initialState);
@@ -47,9 +53,17 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
     currentId ? state.bookings.find((c) => c._id === currentId) : null
   );
 
+  const doctors = useSelector((state) => state.doctors);
+  const clinics = useSelector((state) => state.clinics);
+
   useEffect(() => {
     if (bookingDetails) {setBookingData(bookingDetails);}else{setBookingData(initialState);}
   }, [bookingDetails]);
+
+  useState(() => {
+    dispatch(fetchDoctors());
+    dispatch(fetchClinics());
+  }, [dispatch]);
 
   const clearData = () => {
     setBookingData(initialState);
@@ -63,9 +77,6 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
     else dispatch(updateBooking(currentId, bookingData));
     clearData();
   };
-
-  const doctors = useSelector((state) => state.doctors);
-  console.log(doctors);
 
   return (
     <Dialog
@@ -89,13 +100,34 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
             label='Doctor'
             fullWidth
             defaultValue={0}
-            value={bookingData.doctor}
+            value={bookingData.doctor._id}
             onChange={(e) =>
               setBookingData({ ...bookingData, doctor: e.target.value })
             }
           >
             <MenuItem value={0}>Select Doctor</MenuItem>  
             {doctors.map(({_id, name}, index) => (
+              <MenuItem key={index} value={_id}>
+                {name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl fullWidth>
+          <InputLabel id='clinic-label'>Clinic</InputLabel>  
+          <Select 
+            labelId='clinic-label'
+            id='clinic'
+            label='Clinic'
+            fullWidth
+            defaultValue={0}
+            value={bookingData.clinic._id}
+            onChange={(e) =>
+              setBookingData({ ...bookingData, clinic: e.target.value })
+            }
+          >
+            <MenuItem value={0}>Select Clinic</MenuItem>  
+            {clinics.map(({_id, name}, index) => (
               <MenuItem key={index} value={_id}>
                 {name}
               </MenuItem>
@@ -130,13 +162,13 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
             }
           >
             <MenuItem value={0}>Select Booking Type</MenuItem>  
-            <MenuItem value={1}>Echo</MenuItem>  
-            <MenuItem value={2}>ECG</MenuItem>  
-            <MenuItem value={3}>Holter Off</MenuItem> 
-            <MenuItem value={4}>ABP Off</MenuItem> 
-            <MenuItem value={5}>CPAP Follow Up</MenuItem> 
-            <MenuItem value={6}>Miscellanous</MenuItem> 
-            <MenuItem value={7}>Remote Follow Up</MenuItem> 
+            <MenuItem value='Echo'>Echo</MenuItem>  
+            <MenuItem value='ECG'>ECG</MenuItem>  
+            <MenuItem value='Holter Off'>Holter Off</MenuItem> 
+            <MenuItem value='ABP Off'>ABP Off</MenuItem> 
+            <MenuItem value='CPAP Follow Up'>CPAP Follow Up</MenuItem> 
+            <MenuItem value='Miscellanous'>Miscellanous</MenuItem> 
+            <MenuItem value='Remote Follow Up'>Remote Follow Up</MenuItem> 
           </Select>
         </FormControl>
         <TextField
@@ -199,6 +231,65 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
             setBookingData({ ...bookingData, address: e.target.value })
           }
         />
+        <TextField
+          autoFocus
+          margin='dense'
+          id='age'
+          label='Your Age'
+          type='text'
+          fullWidth
+          value={bookingData.age}
+          onChange={(e) =>
+            setBookingData({ ...bookingData, age: e.target.value })
+          }
+        />
+        <FormControl fullWidth>
+          <InputLabel id='gender-label'>Gender</InputLabel>
+          <Select 
+            labelId='gender-label'
+            id='gender'
+            label='Gender'
+            fullWidth
+            defaultValue={0}
+            value={bookingData.gender}
+            onChange={(e) =>
+              setBookingData({ ...bookingData, gender: e.target.value })
+            }
+          >
+            <MenuItem value={0}>Select Gender</MenuItem>  
+            <MenuItem value='Male'>Male</MenuItem>  
+            <MenuItem value='Female'>Female</MenuItem>  
+          </Select>
+        </FormControl>
+        <FormControl fullWidth>
+          <TextField
+            id='bookingDateTime'
+            label='Next appointment'
+            type='datetime-local'
+            defaultValue={new Date()}
+            sx={{ width: 300 }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            value={bookingData.bookingDateTime}
+            onChange={(e) =>
+              setBookingData({ ...bookingData, bookingDateTime: e.target.value })
+            }
+          />
+        </FormControl>
+        <FormControl fullWidth>
+          <TextareaAutosize
+            id='bookingNotes'
+            aria-label='minimum height'
+            minRows={4}
+            maxRows={4}
+            placeholder='Problem'
+            value={bookingData.bookingNotes}
+            onChange={(e) =>
+              setBookingData({ ...bookingData, bookingNotes: e.target.value })
+            }
+          />
+        </FormControl>
       </DialogContent>
       <DialogActions>
         <Button color='secondary' onClick={handleClose}>

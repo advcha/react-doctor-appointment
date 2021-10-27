@@ -33,7 +33,6 @@ const BookingTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, set
   const dispatch = useDispatch();
 
   const bookings = useSelector((state) => state.bookings);
-  console.log(bookings);
 
   const delBooking = (id) => {
     dispatch(deleteBooking(id));
@@ -70,7 +69,10 @@ const BookingTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, set
           size='large'
           className={classes.addBooking}
           startIcon={<AddIcon />}
-          onClick={handleClickOpen}
+          onClick={() => {
+            setCurrentId(0);
+            handleClickOpen();
+          }}
         >
           Add Booking
         </Button>
@@ -79,24 +81,35 @@ const BookingTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, set
         <MaterialTable
           title='Booking Details'
           columns={[
+            { title: 'Booking ID', field: 'bookingId' },
             {
-              title: 'Image',
-              field: 'selectedImage',
+              title: 'Patient Name',
+              field: 'name',
               render: (rowData) => (
-                rowData.selectedImage && (
-                <img
-                  alt='Userimage'
-                  style={{ height: 50, borderRadius: '50%' }}
-                  src={rowData.selectedImage}
-                />
-                )
+                rowData.firstName + ' ' + rowData.lastName
               ),
             },
-            { title: 'Name', field: 'name' },
-            { title: 'Email ID', field: 'email' },
-            { title: 'Phone No', field: 'phoneNo1' },
-            { title: 'Alt Phone No', field: 'phoneNo2' },
-            { title: 'Address', field: 'address' },
+            { 
+              title: 'Booking Date', 
+              field: 'bookingDateTime',
+              render: (rowData) => (
+                (new Date(rowData.bookingDateTime)).toUTCString()
+              ), 
+            },
+            { 
+              title: 'Clinic', 
+              field: 'clinic',
+              render: (rowData) => (
+                rowData.clinic.name
+              ), 
+            },
+            { 
+              title: 'Doctor', 
+              field: 'doctor',
+              render: (rowData) => (
+                rowData.doctor.name
+              ), 
+            },
             {
               title: 'Edit/Delete',
               field: 'edit',
