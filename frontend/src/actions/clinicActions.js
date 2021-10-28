@@ -33,9 +33,10 @@ export const fetchClinics = () => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState();
 
+    const token = userInfo ? userInfo.token : 'homepage';
     const config = {
       headers: {
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${token}`,
       },
     };
 

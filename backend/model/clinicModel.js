@@ -6,6 +6,7 @@ const clinicSchema = mongoose.Schema({
   phoneNo1: String,
   phoneNo2: String,
   address: String,
+  bookingInterval: String,
   selectedImage: String,
   createdAt: {
     type: Date,

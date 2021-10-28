@@ -59,12 +59,6 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
 
   useEffect(() => {
     if (bookingDetails) {
-      /*if (bookingDetails.doctor._id !== undefined && bookingDetails.clinic._id !== undefined) {
-        const doctorId = bookingDetails.doctor._id;
-        const clinicId = bookingDetails.clinic._id;
-        bookingDetails.doctor = doctorId;
-        bookingDetails.clinic = clinicId;
-      }*/
       setBookingData(bookingDetails);
     } else {
       setBookingData(initialState);

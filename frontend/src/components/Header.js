@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../logo.png'
 
 import { Typography, AppBar, Toolbar, Button } from '@material-ui/core';
@@ -9,6 +10,7 @@ import { logout } from '../actions/authActions';
 const useStyles = makeStyles((theme) => ({
   appTitle: {
     backgroundColor: 'white',
+    boxShadow: 'none',
   },
   title: {
     flexGrow: 1,
@@ -26,34 +28,48 @@ const Header = (userInfo) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const logoutHandler = (e) => {
-    e.preventDefault();
-    console.log('Ok');
-    dispatch(logout());
+  console.log(userInfo);
+
+  const signInOutHandler = (e) => {
+    if (userInfo.userInfo) {
+      e.preventDefault();
+      dispatch(logout());
+    } else {
+      document.location.href = '/login';
+    }
+  };
+
+  const bookingHandler = (e) => {
+    document.location.href = '/booking';
   };
 
   return (
     <div>
       <AppBar position='static' className={classes.appTitle} style={{ marginTop: '20px' }}>
         <Toolbar>
-          <img src={logo} height="48" className="d-inline-block align-center" alt="logo" />
-          {/*userInfo.userInfo && (
-            <Typography variant='h6' className={classes.name}>
-              {`Hello, ${userInfo.userInfo.firstName} ${userInfo.userInfo.lastName}`}
-            </Typography>
-          )*/}
+          <Link to='/'>
+          <img src={logo} height='48' className='d-inline-block align-center' alt='logo' />
+          </Link>
           <Typography variant='h6' className={classes.title}>
-            Doctor Appointment/Booking
+            Doctor Appointment
           </Typography>
           {userInfo.userInfo && (
             <Button
               variant='contained'
               style={{ textAlign: 'right' }}
-              onClick={logoutHandler}
+              onClick={bookingHandler}
             >
-              Sign Out
+              Admin
             </Button>
           )}
+          <Button
+            variant='contained'
+            style={{ textAlign: 'right' }}
+            onClick={signInOutHandler}
+          >
+            {`${userInfo.userInfo ? 'Sign Out' : 'Sign In'
+              }`}
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

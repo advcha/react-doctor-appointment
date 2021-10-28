@@ -31,6 +31,7 @@ const ClinicForm = ({ currentId, setCurrentId, open, handleClose }) => {
     phoneNo2: '',
     address: '',
     selectedImage: '',
+    bookingInterval: '0',
   };
 
   const [clinicData, setClinicData] = useState(initialState);
@@ -129,6 +130,18 @@ const ClinicForm = ({ currentId, setCurrentId, open, handleClose }) => {
           value={clinicData.address}
           onChange={(e) =>
             setClinicData({ ...clinicData, address: e.target.value })
+          }
+        />
+        <TextField
+          autoFocus
+          margin='dense'
+          id='bookingInterval'
+          label='Booking Interval (minutes)'
+          type='text'
+          fullWidth
+          value={clinicData.bookingInterval}
+          onChange={(e) =>
+            setClinicData({ ...clinicData, bookingInterval: e.target.value })
           }
         />
         <div className={classes.file}>

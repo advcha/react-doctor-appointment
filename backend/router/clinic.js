@@ -11,7 +11,8 @@ import {
 import { protect } from '../middleware/authMiddleware.js';
 
 router.route('/').post(protect, createClinic);
-router.route('/').get(protect, getClinics);
+//router.route('/').get(protect, getClinics);
+router.route('/').get(getClinics);
 router.route('/:id').delete(protect, deleteClinic).put(protect, updateClinic);
 router.route('/delete').post(protect, deleteMultiClinics);
 

@@ -3,9 +3,7 @@ import mongoose from 'mongoose';
 import Clinic from '../model/clinicModel.js';
 
 const createClinic = asyncHandler(async (req, res) => {
-  const { name, email, phoneNo1, phoneNo2, address, selectedImage } = req.body;
-
-  console.log(req.body);
+  const { name, email, phoneNo1, phoneNo2, address, bookingInterval, selectedImage } = req.body;
 
   const newClinic = new Clinic({
     name,
@@ -13,6 +11,7 @@ const createClinic = asyncHandler(async (req, res) => {
     phoneNo1,
     phoneNo2,
     address,
+    bookingInterval,
     selectedImage,
   });
 
@@ -53,7 +52,7 @@ const deleteMultiClinics = asyncHandler(async (req, res) => {
 
 const updateClinic = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { name, email, phoneNo1, phoneNo2, address, selectedImage } = req.body;
+  const { name, email, phoneNo1, phoneNo2, address, bookingInterval, selectedImage } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No Clinic with id: ${id}`);
@@ -64,6 +63,7 @@ const updateClinic = asyncHandler(async (req, res) => {
   existClinic.phoneNo1 = phoneNo1 || existClinic.phoneNo1;
   existClinic.phoneNo2 = phoneNo2 || existClinic.phoneNo2;
   existClinic.address = address || existClinic.address;
+  existClinic.bookingInterval = bookingInterval || existClinic.bookingInterval;
   existClinic.selectedImage = selectedImage || existClinic.selectedImage;
 
   const updatedClinic = await existClinic.save();

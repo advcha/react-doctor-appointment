@@ -33,7 +33,6 @@ const ClinicTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, setC
   const dispatch = useDispatch();
 
   const clinics = useSelector((state) => state.clinics);
-  console.log(clinics);
 
   const delClinic = (id) => {
     dispatch(deleteClinic(id));
@@ -89,7 +88,7 @@ const ClinicTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, setC
                 rowData.selectedImage && (
                 <img
                   alt='Userimage'
-                  style={{ height: 50, borderRadius: '50%' }}
+                  style={{ height: 50 }}
                   src={rowData.selectedImage}
                 />
                 )
@@ -100,6 +99,7 @@ const ClinicTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, setC
             { title: 'Phone No', field: 'phoneNo1' },
             { title: 'Alt Phone No', field: 'phoneNo2' },
             { title: 'Address', field: 'address' },
+            { title: 'Booking Interval (minutes)', field: 'bookingInterval' },
             {
               title: 'Edit/Delete',
               field: 'edit',
