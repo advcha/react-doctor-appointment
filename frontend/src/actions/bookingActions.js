@@ -6,6 +6,7 @@ import {
   BOOKING_DELETE,
   BOOKING_DELETE_ALL,
   BOOKING_FETCH_ALL,
+  BOOKING_FETCH_ALL_BY_CLINIC,
 } from '../constants/bookingConstants';
 
 export const createBooking = (form) => async (dispatch, getState) => {
@@ -41,6 +42,26 @@ export const fetchBookings = () => async (dispatch, getState) => {
 
     const { data } = await axios.get('/booking', config);
     dispatch({ type: BOOKING_FETCH_ALL, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchBookingsByClinic = (idClinic) => async (dispatch, getState) => {
+  try {
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const token = userInfo ? userInfo.token : 'homepage';
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/booking/${idClinic}`, config);
+    dispatch({ type: BOOKING_FETCH_ALL_BY_CLINIC, payload: data });
   } catch (error) {
     console.log(error);
   }

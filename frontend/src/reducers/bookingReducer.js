@@ -4,11 +4,14 @@ import {
   BOOKING_DELETE_ALL,
   BOOKING_FETCH_ALL,
   BOOKING_UPDATE,
+  BOOKING_FETCH_ALL_BY_CLINIC,
 } from '../constants/bookingConstants';
 
 export const bookingReducer = (bookings = [], action) => {
   switch (action.type) {
     case BOOKING_FETCH_ALL:
+      return action.payload;
+    case BOOKING_FETCH_ALL_BY_CLINIC:
       return action.payload;
     case BOOKING_CREATE:
       return [...bookings, action.payload];
