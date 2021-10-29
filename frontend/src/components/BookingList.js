@@ -5,18 +5,27 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDoctors } from '../actions/doctorActions';
 import { fetchClinics } from '../actions/clinicActions';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   clinicImage: {
     textAlign: 'center'
   },
+  appointmentGrid: {
+    border: '1px solid rgb(239, 239, 239)',
+    borderRadius: '10px',
+    backgroundColor: 'white',
+    padding: '8px'
+  },
+  appointmentText: {
+    textAlign: 'center',
+    fontSize: '1.0rem',
+  }
 }));
 
 const BookingList = ({ idClinic }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
-  console.log(idClinic);
 
   const bookings = useSelector((state) => state.bookings);
   const doctors = useSelector((state) => state.doctors);
@@ -67,8 +76,29 @@ const BookingList = ({ idClinic }) => {
         justify='flex-start'
         alignItems='flex-start'
       >
+        <Grid item xs={12} sm={6} md={4}>
+          <div className={classes.appointmentGrid}>
+            <Typography variant='h6' className={classes.appointmentText}>
+              Appointment in 2 days
+            </Typography>
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <div className={classes.appointmentGrid}>
+            <Typography variant='h6' className={classes.appointmentText}>
+              Appointment Tomorrow
+            </Typography>
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <div className={classes.appointmentGrid}>
+            <Typography variant='h6' className={classes.appointmentText}>
+              Appointment Today
+            </Typography>
+          </div>
+        </Grid>
         {bookings.map(b => (
-          <Grid item xs={12} sm={6} md={3} key={bookings.indexOf(b)}>
+          <Grid item xs={12} sm={6} md={4} key={bookings.indexOf(b)}>
             <Card>
               <CardHeader
                 title={
@@ -80,7 +110,7 @@ const BookingList = ({ idClinic }) => {
                     }}
                     key={bookings.indexOf(b)}
                   >
-                    {b.firstName}
+                    {b.firstName + ' ' + b.lastName}
                   </Link>
                 }
                 subheader={`phone : ${b.phoneNo}`}
@@ -94,7 +124,7 @@ const BookingList = ({ idClinic }) => {
                   }}
                   key={bookings.indexOf(b)}
                 >
-                  {b.lastName}
+                  {moment(b.bookingDateTime).format('MM/DD/YYYY HH:mm')}
                 </Link>
               </CardContent>
             </Card>

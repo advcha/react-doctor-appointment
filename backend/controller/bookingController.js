@@ -1,8 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import mongoose from 'mongoose';
 import Booking from '../model/bookingModel.js';
-//import Doctor from '../model/doctorModel.js';
-//import Clinic from '../model/clinicModel.js';
+import moment from 'moment';
 
 const createBooking = asyncHandler(async (req, res) => {
   const { doctor, clinic, bookingId, bookingType, firstName, lastName, email, phoneNo, address, age, gender, bookingDateTime, bookingNotes } = req.body;
@@ -43,7 +42,14 @@ const getBookings = asyncHandler(async (req, res) => {
 
 const getBookingsByClinic = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const bookings = await Booking.find({clinic:id}).populate(['doctor', 'clinic']);
+  const today = moment().format('YYYY-MM-DDTHH:mm');
+  const twodaysAfter = moment().add(2, 'days').format('YYYY-MM-DDTHH:mm');
+  const bookings = await Booking.find({
+    clinic:id, 
+    bookingDateTime:{
+      $gte: today,
+      $lte: twodaysAfter
+    }}).sort({bookingDateTime:-1}).populate(['doctor', 'clinic']);
   res.json(bookings);
 });
 
