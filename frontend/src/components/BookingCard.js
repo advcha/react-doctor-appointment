@@ -98,12 +98,12 @@ const BookingCard = ({ booking, openInfo, setBookingSelected, gridKey }) => {
               justify='flex-start'
               alignItems='flex-start'
             >
-              <Grid item xs={12} sm={6} md={6}>
+              <Grid item xs={12} sm={12} md={6}>
                 <Typography variant='h6' className={classes.bookingText}>
                   <Call className={classes.icon} />{booking.phoneNo}
                 </Typography>
               </Grid>
-              <Grid item xs={12} sm={6} md={6} className={classes.gridButton}>
+              <Grid item xs={12} sm={12} md={6} className={classes.gridButton}>
                 <Button className={classes.buttonInfo} onClick={() => {
                   setBookingSelected(booking);
                   openInfo();
