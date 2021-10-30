@@ -7,7 +7,6 @@ import {
 } from '../constants/clinicConstants';
 
 export const clinicReducer = (clinics = [], action) => {
-  console.log(action.type);
   switch (action.type) {
     case CLINIC_FETCH_ALL:
       return action.payload;
