@@ -6,8 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchDoctors } from '../actions/doctorActions';
 
 const useStyles = makeStyles((theme) => ({
-  clinicImage: {
-    textAlign: 'center'
+  title: {
+    fontSize: '14px',
+  },
+  chk: {
+    '& span':{
+      fontSize: '12px !important',
+    }
   },
 }));
 
@@ -37,7 +42,7 @@ const DoctorList = ({ idClinic }) => {
       </Typography>
       <FormGroup>
         {doctors.map(d => (
-          <FormControlLabel control={<Checkbox />} label={d.name} key={doctors.indexOf(d)} />
+          <FormControlLabel className={classes.chk} control={<Checkbox />} label={d.name} key={doctors.indexOf(d)} />
         ))} 
       </FormGroup> 
     </>

@@ -42,13 +42,15 @@ const getBookings = asyncHandler(async (req, res) => {
 
 const getBookingsByClinic = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const today = moment().format('YYYY-MM-DDTHH:mm');
-  const twodaysAfter = moment().add(2, 'days').format('YYYY-MM-DDTHH:mm');
+  //const today = moment().format('YYYY-MM-DDTHH:mm');
+  const today = moment().format('YYYY-MM-DD');
+  //const twodaysAfter = moment().add(2, 'days').format('YYYY-MM-DDTHH:mm');
+  const twodaysAfter = moment().add(3, 'days').format('YYYY-MM-DD');
   const bookings = await Booking.find({
     clinic:id, 
     bookingDateTime:{
       $gte: today,
-      $lte: twodaysAfter
+      $lt: twodaysAfter
     }}).sort({bookingDateTime:-1}).populate(['doctor', 'clinic']);
   res.json(bookings);
 });
