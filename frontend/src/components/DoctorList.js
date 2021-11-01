@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
   chk: {
     '& span':{
       fontSize: '12px !important',
+      padding: '3px',
     }
   },
 }));

@@ -6,7 +6,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MaterialTable from 'material-table';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteDoctor, deleteDoctors } from '../actions/doctorActions';
+import { deleteSetting, deleteSettings } from '../actions/settingActions';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -28,18 +28,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DoctorTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, handleSettingOpen, setCurrentId }) => {
+const SettingTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, handleSettingOpen, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const doctors = useSelector((state) => state.doctors);
+  const settings = useSelector((state) => state.settings);
 
-  const delDoctor = (id) => {
-    dispatch(deleteDoctor(id));
+  const delSetting = (id) => {
+    dispatch(deleteSetting(id));
   };
 
-  const delDoctors = (idArr) => {
-    dispatch(deleteDoctors(idArr));
+  const delSettings = (idArr) => {
+    dispatch(deleteSettings(idArr));
   };
 
   return (
@@ -50,22 +50,22 @@ const DoctorTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, hand
           color='primary'
           size='large'
           className={classes.addBooking}
-          onClick={handleSettingOpen}
+          startIcon={<AddIcon />}
+          onClick={() => {
+            setCurrentId(0);
+            handleSettingOpen();
+          }}
         >
-          Show Setting
+          Add Setting
         </Button>
         <Button
           variant='contained'
           color='primary'
           size='large'
           className={classes.addBooking}
-          startIcon={<AddIcon />}
-          onClick={() => {
-            setCurrentId(0);
-            handleDoctorOpen();
-          }}
+          onClick={handleDoctorOpen}
         >
-          Add Doctor
+          Show Doctor
         </Button>
         <Button
           variant='contained'
@@ -88,26 +88,10 @@ const DoctorTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, hand
       </div>
       <Card>
         <MaterialTable
-          title='Doctor Details'
+          title='Setting Details'
           columns={[
-            {
-              title: 'Doctor Photo',
-              field: 'selectedImage',
-              render: (rowData) => (
-                rowData.selectedImage && (
-                <img
-                  alt='Userimage'
-                  style={{ height: 50, borderRadius: '50%' }}
-                  src={rowData.selectedImage}
-                />
-                )
-              ),
-            },
-            { title: 'Doctor Name', field: 'name' },
-            { title: 'Email', field: 'email' },
-            { title: 'Phone No', field: 'phoneNo1' },
-            { title: 'Alt Phone No', field: 'phoneNo2' },
-            { title: 'Address', field: 'address' },
+            { title: 'Setting Name', field: 'name' },
+            { title: 'Setting Value', field: 'nameValue' },
             {
               title: 'Edit/Delete',
               field: 'edit',
@@ -118,7 +102,7 @@ const DoctorTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, hand
                       color='primary'
                       onClick={() => {
                         setCurrentId(rowData._id);
-                        handleDoctorOpen();
+                        handleSettingOpen();
                       }}
                     >
                       <EditIcon />
@@ -127,7 +111,7 @@ const DoctorTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, hand
                       color='secondary'
                       onClick={() => {
                         if(window.confirm('Are you sure to delete this data?')){
-                          delDoctor(rowData._id);
+                          delSetting(rowData._id);
                         }
                       }}
                     >
@@ -137,12 +121,12 @@ const DoctorTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, hand
                 ),
             },
           ]}
-          data={doctors}
+          data={settings}
           actions={[
             {
               tooltip: 'Remove All Selected Data',
               icon: 'delete',
-              onClick: (evt, data) => delDoctors(data.map((a) => a._id)),
+              onClick: (evt, data) => delSettings(data.map((a) => a._id)),
             },
           ]}
           options={{
@@ -156,4 +140,4 @@ const DoctorTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, hand
   );
 };
 
-export default DoctorTable;
+export default SettingTable;

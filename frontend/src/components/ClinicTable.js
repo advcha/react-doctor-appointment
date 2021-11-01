@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ClinicTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, setCurrentId }) => {
+const ClinicTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, handleSettingOpen, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -45,6 +45,15 @@ const ClinicTable = ({ handleClickOpen, handleClinicOpen, handleDoctorOpen, setC
   return (
     <>
       <div style={{ textAlign: 'right' }}>
+        <Button
+          variant='contained'
+          color='primary'
+          size='large'
+          className={classes.addBooking}
+          onClick={handleSettingOpen}
+        >
+          Show Setting
+        </Button>
         <Button
           variant='contained'
           color='primary'

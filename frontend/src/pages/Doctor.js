@@ -22,6 +22,10 @@ const Doctor = () => {
     document.location.href = '/clinic';
   };
 
+  const handleSettingOpen = () => {
+    document.location.href = '/setting';
+  };
+
   const handleClose = () => {
     setOpenDoctor(false);
   };
@@ -47,6 +51,7 @@ const Doctor = () => {
         handleClickOpen={handleClickOpen}
         handleDoctorOpen={handleDoctorOpen}
         handleClinicOpen={handleClinicOpen}
+        handleSettingOpen={handleSettingOpen}
         setCurrentId={setCurrentId}
       />
     </div>
