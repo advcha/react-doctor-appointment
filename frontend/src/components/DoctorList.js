@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, IconButton, Grid, CardHeader, CardContent, Typography, Toolbar, Select, MenuItem, InputLabel, FormControl, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,27 +10,48 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '14px',
   },
   chk: {
-    '& span':{
+    '& span': {
       fontSize: '12px !important',
       padding: '3px',
-    }
+    },
+    '& .Mui-checked': {
+      color: 'rgb(24, 186, 240)',
+    },
   },
 }));
 
-const DoctorList = ({ idClinic }) => {
+const DoctorList = ({ handleSearchBooking }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const doctors = useSelector((state) => state.doctors);
-  const goToAppointment = (e, id) => {
-    e.preventDefault();
-    document.location.href = '/appointment/' + id;
+
+  const [checkedStatus, setCheckedStatus] = useState([]);
+
+  const searchBooking = (e) => {
+    let checkedArr = [...checkedStatus];
+    if (e.target.checked === true) {
+      checkedArr.push(e.target.value);
+    } else {
+      const checkFiltered = checkedArr.filter(d => {
+        return d !== e.target.value;
+      })
+      checkedArr = checkFiltered;
+    }
+    setCheckedStatus(checkedArr);
+    handleSearchBooking(checkedArr);
   };
 
-  const goToClinic = (e, id) => {
-    e.preventDefault();
-    document.location.href = '/appointment/' + id;
-  };
+  useEffect(() => {
+    if (doctors.length) {
+      let checkedArr = [];
+      doctors.map(d => {
+        checkedArr.push(d._id);
+        setCheckedStatus(checkedArr);
+      });
+      handleSearchBooking(checkedArr);
+    }
+  }, [doctors]);
 
   useState(() => {
     dispatch(fetchDoctors());
@@ -43,9 +64,9 @@ const DoctorList = ({ idClinic }) => {
       </Typography>
       <FormGroup>
         {doctors.map(d => (
-          <FormControlLabel className={classes.chk} control={<Checkbox />} label={d.name} key={doctors.indexOf(d)} />
-        ))} 
-      </FormGroup> 
+          <FormControlLabel className={classes.chk} control={<Checkbox value={d._id} checked={checkedStatus.indexOf(d._id) > -1 ? true : false} onChange={(e) => searchBooking(e)} />} label={d.name} key={doctors.indexOf(d)} />
+        ))}
+      </FormGroup>
     </>
   );
 };

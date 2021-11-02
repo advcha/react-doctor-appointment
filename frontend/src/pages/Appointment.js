@@ -50,7 +50,12 @@ const Appointment = () => {
   const dispatch = useDispatch();
 
   const { id } = useParams();
-  console.log(id);
+
+  const [doctorSelected, setDoctorSelected] = useState('');
+
+  const handleSearchBooking = (ids) => {
+    setDoctorSelected(ids);
+  }
 
   useState(() => {
     dispatch(fetchBookingsByClinic(id));
@@ -67,13 +72,16 @@ const Appointment = () => {
         <div className={classes.paper}>
           <Grid item xs={12} sm={6} md={3}>
             <div className={classes.sidebar}>
-              <DoctorList />
+              <DoctorList 
+                handleSearchBooking={handleSearchBooking}
+              />
             </div>
           </Grid>
           <Grid item xs={12} sm={6} md={9}>
             <div className={classes.main}>
               <BookingList
                 idClinic={id}
+                doctorSelected={doctorSelected}
               />
             </div>
           </Grid>

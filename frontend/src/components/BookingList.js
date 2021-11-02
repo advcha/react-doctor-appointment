@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, IconButton, Grid, CardHeader, CardContent, Typography, Toolbar, Select, MenuItem, InputLabel, FormControl, TextField, } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BookingList = ({ idClinic }) => {
+const BookingList = ({ idClinic, doctorSelected }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -63,7 +63,23 @@ const BookingList = ({ idClinic }) => {
   const [open, setOpen] = useState(false);
   const [bookingSelected, setBookingSelected] = useState([]);
 
-  const bookings = useSelector((state) => state.bookings);
+  const bookings = useSelector((state) => {
+    if (doctorSelected.length) {
+      const bookingFiltered = [];
+      state.bookings.filter(b => {
+        doctorSelected.map(d => {
+          if (d == b.doctor._id) {
+            bookingFiltered.push(b);
+          }
+        });
+      });
+      return bookingFiltered;
+    } else {
+      //return state.bookings;
+      return [];
+    }
+  });
+
   const doctors = useSelector((state) => state.doctors);
   const clinics = useSelector((state) => state.clinics);
 
@@ -75,9 +91,9 @@ const BookingList = ({ idClinic }) => {
     setOpen(false);
   };
 
-  const bookingTwoDaysAfter = bookings.filter(b=>(moment(b.bookingDateTime).format('MM/DD/YYYY') == moment().add(2,'days').format('MM/DD/YYYY')));
-  const bookingTomorrow = bookings.filter(b=>(moment(b.bookingDateTime).format('MM/DD/YYYY') == moment().add(1,'days').format('MM/DD/YYYY')));
-  const bookingToday = bookings.filter(b=>(moment(b.bookingDateTime).format('MM/DD/YYYY') == moment().format('MM/DD/YYYY')));
+  const bookingTwoDaysAfter = bookings.filter(b => (moment(b.bookingDateTime).format('MM/DD/YYYYT') == moment().add(2, 'days').format('MM/DD/YYYYT')));
+  const bookingTomorrow = bookings.filter(b => (moment(b.bookingDateTime).format('MM/DD/YYYYT') == moment().add(1, 'days').format('MM/DD/YYYYT')));
+  const bookingToday = bookings.filter(b => (moment(b.bookingDateTime).format('MM/DD/YYYYT') == moment().format('MM/DD/YYYYT')));
 
   const goToClinic = (e, id) => {
     e.preventDefault();
@@ -130,7 +146,7 @@ const BookingList = ({ idClinic }) => {
               id='search1'
               label='Search 1'
               defaultValue={bookingSearch.search1}
-              value={bookingSearch.search1} 
+              value={bookingSearch.search1}
               className={classes.inputSearch}
               onChange={(e) =>
                 setBookingSearch({ ...bookingSearch, search1: e.target.value })
@@ -149,7 +165,7 @@ const BookingList = ({ idClinic }) => {
               label='Search 2'
               defaultValue={bookingSearch.search2}
               value={bookingSearch.search2}
-              className={classes.inputSearch} 
+              className={classes.inputSearch}
               onChange={(e) =>
                 setBookingSearch({ ...bookingSearch, search2: e.target.value })
               }
@@ -179,7 +195,7 @@ const BookingList = ({ idClinic }) => {
               id='textSearch'
               placeholder='Search'
               type='text'
-              value='' 
+              value=''
               className={classes.inputSearch}
             />
             <Button color='primary' className={classes.buttonSearch} onClick={searchBooking}>
@@ -213,8 +229,8 @@ const BookingList = ({ idClinic }) => {
               alignItems='flex-start'
             >
               {bookingTwoDaysAfter.map(b => (
-                <BookingCard 
-                  booking={b} 
+                <BookingCard
+                  booking={b}
                   openInfo={openInfo}
                   closeInfo={closeInfo}
                   setBookingSelected={setBookingSelected}
@@ -237,8 +253,8 @@ const BookingList = ({ idClinic }) => {
               alignItems='flex-start'
             >
               {bookingTomorrow.map(b => (
-                <BookingCard 
-                  booking={b} 
+                <BookingCard
+                  booking={b}
                   openInfo={openInfo}
                   setBookingSelected={setBookingSelected}
                   key={bookingTomorrow.indexOf(b)}
@@ -260,8 +276,8 @@ const BookingList = ({ idClinic }) => {
               alignItems='flex-start'
             >
               {bookingToday.map(b => (
-                <BookingCard 
-                  booking={b} 
+                <BookingCard
+                  booking={b}
                   openInfo={openInfo}
                   setBookingSelected={setBookingSelected}
                   key={bookingToday.indexOf(b)}
