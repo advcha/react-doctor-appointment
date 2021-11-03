@@ -12,7 +12,6 @@ import {
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
-//import { createContact, updateContact } from '../actions/contactActions';
 import { createDoctor, updateDoctor } from '../actions/doctorActions';
 
 const useStyles = makeStyles((theme) => ({

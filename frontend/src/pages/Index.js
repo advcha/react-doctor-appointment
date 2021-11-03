@@ -5,7 +5,7 @@ const Index = () => {
   return (
     <div>
       I am Index Page
-      <Link to='/booking'>Go to Contact Page</Link>
+      <Link to='/booking'>Go to Booking Page</Link>
     </div>
   );
 };

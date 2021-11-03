@@ -2,7 +2,6 @@ import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 
-//import Contact from './pages/Contact';
 import Booking from './pages/Booking';
 import Doctor from './pages/Doctor';
 import Clinic from './pages/Clinic';
