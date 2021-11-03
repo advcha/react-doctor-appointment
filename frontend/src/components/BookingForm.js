@@ -51,9 +51,7 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
   useEffect(() => {
     if (bookingDetails) {
       setBookingData(bookingDetails);
-    } else {
-      setBookingData(initialState);
-    }
+    } 
   }, [bookingDetails]);
 
   useState(() => {
@@ -287,7 +285,10 @@ const BookingForm = ({ currentId, setCurrentId, open, handleClose }) => {
         </FormControl>
       </DialogContent>
       <DialogActions>
-        <Button color='secondary' onClick={handleClose}>
+        <Button color='secondary' onClick={(e) => {
+          setBookingData(initialState);
+          handleClose();
+        }}>
           Close
         </Button>
         <Button color='primary' onClick={handleSubmit}>

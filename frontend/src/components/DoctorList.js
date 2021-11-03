@@ -23,9 +23,24 @@ const DoctorList = ({ handleSearchBooking }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const doctors = useSelector((state) => state.doctors);
+  useState(() => {
+    dispatch(fetchDoctors());
+  }, [dispatch]);
 
   const [checkedStatus, setCheckedStatus] = useState([]);
+
+  const doctors = useSelector((state) => state.doctors);
+
+  useEffect(() => {
+    if (doctors.length) {
+      const checkedArr = [];
+      doctors.map(d => {
+        checkedArr.push(d._id);
+        setCheckedStatus(checkedArr);
+      });
+      handleSearchBooking(checkedArr);
+    }
+  }, [doctors]);
 
   const searchBooking = (e) => {
     let checkedArr = [...checkedStatus];
@@ -40,21 +55,6 @@ const DoctorList = ({ handleSearchBooking }) => {
     setCheckedStatus(checkedArr);
     handleSearchBooking(checkedArr);
   };
-
-  useEffect(() => {
-    if (doctors.length) {
-      const checkedArr = [];
-      doctors.map(d => {
-        checkedArr.push(d._id);
-        setCheckedStatus(checkedArr);
-      });
-      handleSearchBooking(checkedArr);
-    }
-  }, [doctors]);
-
-  useState(() => {
-    dispatch(fetchDoctors());
-  }, [dispatch]);
 
   return (
     <>

@@ -96,7 +96,6 @@ export const updateDoctor = (id, form) => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.put(`/doctor/${id}`, form, config);
-    console.log(data);
     dispatch({ type: DOCTOR_UPDATE, payload: data });
   } catch (error) {
     console.log(error);

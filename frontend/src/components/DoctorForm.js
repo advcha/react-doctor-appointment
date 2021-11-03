@@ -34,14 +34,16 @@ const DoctorForm = ({ currentId, setCurrentId, open, handleClose }) => {
   };
 
   const [doctorData, setDoctorData] = useState(initialState);
-  
+
   const doctorDetails = useSelector((state) =>
     currentId ? state.doctors.find((d) => d._id === currentId) : null
   );
 
 
   useEffect(() => {
-    if (doctorDetails){setDoctorData(doctorDetails);}else{setDoctorData(initialState);}
+    if (doctorDetails) { 
+      setDoctorData(doctorDetails); 
+    } 
   }, [doctorDetails]);
 
   const clearData = () => {
@@ -66,9 +68,8 @@ const DoctorForm = ({ currentId, setCurrentId, open, handleClose }) => {
       <DialogTitle id='form-dialog-title'>Doctor Details</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {`To ${
-            currentId === 0 ? 'add' : 'update'
-          } doctor details from here`}
+          {`To ${currentId === 0 ? 'add' : 'update'
+            } doctor details from here`}
         </DialogContentText>
 
         <TextField
@@ -136,13 +137,16 @@ const DoctorForm = ({ currentId, setCurrentId, open, handleClose }) => {
             type='file'
             multiple={false}
             onDone={({ base64 }) =>
-            setDoctorData({ ...doctorData, selectedImage: base64 })
+              setDoctorData({ ...doctorData, selectedImage: base64 })
             }
           />
         </div>
       </DialogContent>
       <DialogActions>
-        <Button color='secondary' onClick={handleClose}>
+        <Button color='secondary' onClick={(e) => {
+          setDoctorData(initialState);
+          handleClose();
+        }}>
           Close
         </Button>
         <Button color='primary' onClick={handleSubmit}>

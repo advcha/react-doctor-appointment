@@ -10,14 +10,7 @@ import {
   Button,
 } from '@material-ui/core';
 
-import { makeStyles } from '@material-ui/core/styles';
 import { createSetting, updateSetting } from '../actions/settingActions';
-
-const useStyles = makeStyles((theme) => ({
-  file: {
-    marginTop: '15px',
-  },
-}));
 
 const SettingForm = ({ currentId, setCurrentId, open, handleClose }) => {
   const dispatch = useDispatch();
@@ -35,7 +28,9 @@ const SettingForm = ({ currentId, setCurrentId, open, handleClose }) => {
 
 
   useEffect(() => {
-    if (settingDetails){setSettingData(settingDetails);}else{setSettingData(initialState);}
+    if (settingDetails){
+      setSettingData(settingDetails);
+    }
   }, [settingDetails]);
 
   const clearData = () => {
@@ -91,7 +86,10 @@ const SettingForm = ({ currentId, setCurrentId, open, handleClose }) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button color='secondary' onClick={handleClose}>
+        <Button color='secondary' onClick={(e) => {
+          setSettingData(initialState);
+          handleClose();
+        }}>
           Close
         </Button>
         <Button color='primary' onClick={handleSubmit}>
