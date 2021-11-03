@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Card, IconButton, Grid, CardHeader, CardContent, Typography, Toolbar, Select, MenuItem, InputLabel, FormControl, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Typography, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDoctors } from '../actions/doctorActions';
@@ -44,7 +43,7 @@ const DoctorList = ({ handleSearchBooking }) => {
 
   useEffect(() => {
     if (doctors.length) {
-      let checkedArr = [];
+      const checkedArr = [];
       doctors.map(d => {
         checkedArr.push(d._id);
         setCheckedStatus(checkedArr);

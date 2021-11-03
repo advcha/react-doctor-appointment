@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 
 const SettingForm = ({ currentId, setCurrentId, open, handleClose }) => {
   const dispatch = useDispatch();
-  const classes = useStyles();
 
   const initialState = {
     name: '',

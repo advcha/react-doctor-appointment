@@ -1,18 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
   Container,
-  Avatar,
-  Button,
   CssBaseline,
-  TextField,
   Grid,
-  Typography,
-  Card,
-  CardHeader,
-  CardContent,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../components/Header';
@@ -26,11 +18,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     padding: theme.spacing(1),
     color: theme.palette.text.secondary,
-  },
-  title: {
-    textAlign: 'left',
-    fontSize: '1.5rem',
-    color: 'grey',
   },
   sidebar: {
     border: 'none',

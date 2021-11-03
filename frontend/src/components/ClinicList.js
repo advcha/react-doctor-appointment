@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, IconButton, Grid, CardHeader, CardContent, Typography } from '@material-ui/core';
+import { Card, Grid, CardHeader, CardContent, } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ClinicList = ({ open }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   const clinics = useSelector((state) => state.clinics);
 

@@ -1,12 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Card, IconButton, Grid, CardHeader, CardContent, Typography, Toolbar, Select, MenuItem, InputLabel, FormControl, } from '@material-ui/core';
+import React from 'react';
+import { Button, Card, Grid, CardHeader, CardContent, Typography, } from '@material-ui/core';
 import { Call } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchDoctors } from '../actions/doctorActions';
-import { fetchClinics } from '../actions/clinicActions';
-import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   clinicImage: {
@@ -65,12 +60,6 @@ const useStyles = makeStyles((theme) => ({
 
 const BookingCard = ({ booking, openInfo, setBookingSelected, gridKey }) => {
   const classes = useStyles();
-
-  /*const openInfo = () => {
-    //e.preventDefault();
-    //document.location.href = '/appointment/' + id;
-    alert(booking._id);
-  };*/
 
   return (
     <>

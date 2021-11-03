@@ -1,19 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
   Container,
-  Avatar,
-  Button,
   CssBaseline,
-  TextField,
   Grid,
   Typography,
-  Card,
-  CardHeader,
-  CardContent,
 } from '@material-ui/core';
-//import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../components/Header';
 import ClinicList from '../components/ClinicList';
@@ -23,8 +15,6 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(2),
     display: 'flex',
-    /*flexDirection: 'column',
-    alignItems: 'center',*/
     padding: theme.spacing(1),
     color: theme.palette.text.secondary,
   },

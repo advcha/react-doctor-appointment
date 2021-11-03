@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Card, IconButton, Grid, CardHeader, CardContent, Typography, Toolbar, Select, MenuItem, InputLabel, FormControl, TextField, } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Button, Grid, Typography, Toolbar, Select, MenuItem, FormControl, TextField, } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import BookingCard from '../components/BookingCard';
@@ -11,9 +10,6 @@ import { fetchClinics } from '../actions/clinicActions';
 import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
-  clinicImage: {
-    textAlign: 'center'
-  },
   appointmentGrid: {
     border: '1px solid rgb(239, 239, 239)',
     borderRadius: '10px',
@@ -70,25 +66,25 @@ const BookingList = ({ idClinic, doctorSelected }) => {
       const bookingDoctorFiltered = [];
       state.bookings.filter(b => {
         doctorSelected.map(d => {
-          if (d == b.doctor._id) {
+          if (d === b.doctor._id) {
             bookingDoctorFiltered.push(b);
           }
         });
       });
       if (searchFilter && bookingDoctorFiltered) {
-        if (bookingSearch.search2 == 'bookingId') {
+        if (bookingSearch.search2 === 'bookingId') {
           const bookingFiltered = bookingDoctorFiltered.filter(b => {
             return b.bookingId.includes(bookingSearch.search3);
           });
 
           return bookingFiltered;
-        } else if (bookingSearch.search2 == 'firstName') {
+        } else if (bookingSearch.search2 === 'firstName') {
           const bookingFiltered = bookingDoctorFiltered.filter(b => {
             return b.firstName.toLowerCase().includes(bookingSearch.search3.toLowerCase());
           });
 
           return bookingFiltered;
-        } else if (bookingSearch.search2 == 'lastName') {
+        } else if (bookingSearch.search2 === 'lastName') {
           const bookingFiltered = bookingDoctorFiltered.filter(b => {
             return b.lastName.toLowerCase().includes(bookingSearch.search3.toLowerCase());
           });
@@ -104,7 +100,6 @@ const BookingList = ({ idClinic, doctorSelected }) => {
     }
   });
 
-  const doctors = useSelector((state) => state.doctors);
   const clinics = useSelector((state) => state.clinics);
 
   const openInfo = () => {
@@ -115,9 +110,9 @@ const BookingList = ({ idClinic, doctorSelected }) => {
     setOpen(false);
   };
 
-  const bookingTwoDaysAfter = bookings.filter(b => (moment(b.bookingDateTime).format('MM/DD/YYYYT') == moment().add(2, 'days').format('MM/DD/YYYYT')));
-  const bookingTomorrow = bookings.filter(b => (moment(b.bookingDateTime).format('MM/DD/YYYYT') == moment().add(1, 'days').format('MM/DD/YYYYT')));
-  const bookingToday = bookings.filter(b => (moment(b.bookingDateTime).format('MM/DD/YYYYT') == moment().format('MM/DD/YYYYT')));
+  const bookingTwoDaysAfter = bookings.filter(b => (moment(b.bookingDateTime).format('MM/DD/YYYYT') === moment().add(2, 'days').format('MM/DD/YYYYT')));
+  const bookingTomorrow = bookings.filter(b => (moment(b.bookingDateTime).format('MM/DD/YYYYT') === moment().add(1, 'days').format('MM/DD/YYYYT')));
+  const bookingToday = bookings.filter(b => (moment(b.bookingDateTime).format('MM/DD/YYYYT') === moment().format('MM/DD/YYYYT')));
 
   const goToClinic = (e, id) => {
     e.preventDefault();
@@ -129,7 +124,6 @@ const BookingList = ({ idClinic, doctorSelected }) => {
     if (bookingSearch.search3) {
       setSearchFilter(true);
       dispatch(fetchBookingsByClinic(idClinic));
-      //setSearchFilter(false);
     } else {
       setSearchFilter(false);
     }
@@ -153,10 +147,11 @@ const BookingList = ({ idClinic, doctorSelected }) => {
           <Grid item xs={12} sm={6} md={4}>
             <FormControl fullWidth>
               <Select
+                name='clinic'
                 labelId='clinic-label'
                 id='clinic'
                 label='Clinic'
-                defaultValue={0}
+                defaultValue=''
                 value={idClinic}
                 onChange={(e) =>
                   goToClinic(e, e.target.value)
@@ -172,6 +167,7 @@ const BookingList = ({ idClinic, doctorSelected }) => {
           </Grid>
           <Grid item xs={12} sm={6} md={8} className={classes.gridSearch}>
             <Select
+              name='search1'
               labelId='search-1-label'
               id='search1'
               label='Search 1'
@@ -191,6 +187,7 @@ const BookingList = ({ idClinic, doctorSelected }) => {
               </MenuItem>
             </Select>
             <Select
+              name='search2'
               labelId='search-2-label'
               id='search2'
               label='Search 2'
