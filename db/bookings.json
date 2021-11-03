@@ -1,0 +1,406 @@
+[{
+  "_id": {
+    "$oid": "6178bf857390833aa6f9c7a9"
+  },
+  "createdAt": {
+    "$date": "2021-10-27T02:53:53.419Z"
+  },
+  "doctor": {
+    "$oid": "617774023ec91945daf1ca29"
+  },
+  "clinic": {
+    "$oid": "6177ceafb43a618f7aad9846"
+  },
+  "bookingId": "123456789",
+  "bookingType": "Echo",
+  "firstName": "Satria",
+  "lastName": "Faestha",
+  "email": "info@satria.com",
+  "phoneNo": "4445454466",
+  "address": "Melbourne",
+  "age": "30",
+  "gender": "Male",
+  "bookingDateTime": {
+    "$date": "2021-11-03T02:54:00Z"
+  },
+  "bookingNotes": "Headache",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6178f33c3fc75265e95ca3e0"
+  },
+  "createdAt": {
+    "$date": "2021-10-27T06:24:24.745Z"
+  },
+  "doctor": {
+    "$oid": "617774623ec91945daf1ca2a"
+  },
+  "clinic": {
+    "$oid": "6177ceecb43a618f7aad9847"
+  },
+  "bookingId": "234567891",
+  "bookingType": "ECG",
+  "firstName": "Ermillya",
+  "lastName": "Roza",
+  "email": "info@nextit.com",
+  "phoneNo": "0454444646",
+  "address": "kdsjkdjskjdks",
+  "age": "30",
+  "gender": "Female",
+  "bookingDateTime": {
+    "$date": "2021-11-03T06:35:00Z"
+  },
+  "bookingNotes": "Fever",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6178f5193fc75265e95ca3e1"
+  },
+  "createdAt": {
+    "$date": "2021-10-27T06:24:24.745Z"
+  },
+  "doctor": {
+    "$oid": "6177ae613ec91945daf1ca2b"
+  },
+  "clinic": {
+    "$oid": "6177ceafb43a618f7aad9846"
+  },
+  "bookingId": "345678912",
+  "bookingType": "Miscellanous",
+  "firstName": "Andrew",
+  "lastName": "Smith",
+  "email": "info@satria.com",
+  "phoneNo": "4445454466",
+  "address": "gffvfvf",
+  "age": "30",
+  "gender": "Male",
+  "bookingDateTime": {
+    "$date": "2021-11-04T06:42:00Z"
+  },
+  "bookingNotes": "Check up",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6178f7463fc75265e95ca3e2"
+  },
+  "createdAt": {
+    "$date": "2021-10-27T06:24:24.745Z"
+  },
+  "doctor": {
+    "$oid": "6177b7923ec91945daf1ca2c"
+  },
+  "clinic": {
+    "$oid": "6177ceecb43a618f7aad9847"
+  },
+  "bookingId": "456789123",
+  "bookingType": "Remote Follow Up",
+  "firstName": "Andy",
+  "lastName": "Mariner",
+  "email": "test@test.com",
+  "phoneNo": "8989090809",
+  "address": "Sydney",
+  "age": "35",
+  "gender": "Male",
+  "bookingDateTime": {
+    "$date": "2021-11-03T08:54:00Z"
+  },
+  "bookingNotes": "Fever",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6178f98b3fc75265e95ca3e3"
+  },
+  "createdAt": {
+    "$date": "2021-10-27T06:24:24.745Z"
+  },
+  "doctor": {
+    "$oid": "617774623ec91945daf1ca2a"
+  },
+  "clinic": {
+    "$oid": "6177ceafb43a618f7aad9846"
+  },
+  "bookingId": "567891234",
+  "bookingType": "CPAP Follow Up",
+  "firstName": "Dessy",
+  "lastName": "White",
+  "email": "dessy@white.com",
+  "phoneNo": "43434343432",
+  "address": "Sydney",
+  "age": "35",
+  "gender": "Female",
+  "bookingDateTime": {
+    "$date": "2021-11-04T07:01:00Z"
+  },
+  "bookingNotes": "Fever",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6178fa0c5e31026d545ffb65"
+  },
+  "createdAt": {
+    "$date": "2021-10-27T07:03:09.464Z"
+  },
+  "doctor": {
+    "$oid": "6177ae613ec91945daf1ca2b"
+  },
+  "clinic": {
+    "$oid": "6177ceecb43a618f7aad9847"
+  },
+  "bookingId": "678912345",
+  "bookingType": "ABP Off",
+  "firstName": "George",
+  "lastName": "Brown",
+  "email": "george@brown.com",
+  "phoneNo": "767676767",
+  "address": "Alabama",
+  "age": "45",
+  "gender": "Male",
+  "bookingDateTime": {
+    "$date": "2021-11-04T07:04:00Z"
+  },
+  "bookingNotes": "Headache",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6178fb885e31026d545ffb66"
+  },
+  "createdAt": {
+    "$date": "2021-10-27T07:03:09.464Z"
+  },
+  "doctor": {
+    "$oid": "617774023ec91945daf1ca29"
+  },
+  "clinic": {
+    "$oid": "6177ceecb43a618f7aad9847"
+  },
+  "bookingId": "789123456",
+  "bookingType": "Holter Off",
+  "firstName": "Donny",
+  "lastName": "Van De Beek",
+  "email": "donny@okay.com",
+  "phoneNo": "54545454",
+  "address": "Machester",
+  "age": "50",
+  "gender": "Male",
+  "bookingDateTime": {
+    "$date": "2021-11-03T07:10:00Z"
+  },
+  "bookingNotes": "heartache",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6178fc4e7630c56ef32ca7b2"
+  },
+  "createdAt": {
+    "$date": "2021-10-27T07:12:04.607Z"
+  },
+  "doctor": {
+    "$oid": "6177b7923ec91945daf1ca2c"
+  },
+  "clinic": {
+    "$oid": "6177ceafb43a618f7aad9846"
+  },
+  "bookingId": "891234567",
+  "bookingType": "Holter Off",
+  "firstName": "Eugene",
+  "lastName": "Beatrix",
+  "email": "eugene@yahoo.com",
+  "phoneNo": "656556565",
+  "address": "London",
+  "age": "70",
+  "gender": "Female",
+  "bookingDateTime": {
+    "$date": "2021-11-04T07:13:00Z"
+  },
+  "bookingNotes": "Osteoporosisc",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "617925a67630c56ef32ca7b3"
+  },
+  "createdAt": {
+    "$date": "2021-10-27T07:12:04.607Z"
+  },
+  "doctor": {
+    "$oid": "617774023ec91945daf1ca29"
+  },
+  "clinic": {
+    "$oid": "6177ceafb43a618f7aad9846"
+  },
+  "bookingId": "891234567",
+  "bookingType": "ECG",
+  "firstName": "Frank",
+  "lastName": "Villeneuve",
+  "email": "frank@greek.com",
+  "phoneNo": "545454",
+  "address": "Brisbane",
+  "age": "42",
+  "gender": "Male",
+  "bookingDateTime": {
+    "$date": "2021-11-03T03:00:00Z"
+  },
+  "bookingNotes": "Fever",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "617961092f8357bb152f83cf"
+  },
+  "createdAt": {
+    "$date": "2021-10-27T14:19:58.599Z"
+  },
+  "doctor": {
+    "$oid": "617960722f8357bb152f83cd"
+  },
+  "clinic": {
+    "$oid": "617960a72f8357bb152f83ce"
+  },
+  "bookingId": "9012345678",
+  "bookingType": "ABP Off",
+  "firstName": "Ian",
+  "lastName": "Wilson",
+  "email": "ian.wilson@yahoo.com",
+  "phoneNo": "5451123",
+  "address": "Sydney",
+  "age": "65",
+  "gender": "Male",
+  "bookingDateTime": {
+    "$date": "2021-11-05T03:00:00Z"
+  },
+  "bookingNotes": "Complication",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "617e9675dd51d41922ea1c2c"
+  },
+  "createdAt": {
+    "$date": "2021-10-31T13:10:36.643Z"
+  },
+  "doctor": {
+    "$oid": "617774023ec91945daf1ca29"
+  },
+  "clinic": {
+    "$oid": "6177ceafb43a618f7aad9846"
+  },
+  "bookingId": "123456789",
+  "bookingType": "Echo",
+  "firstName": "Guido",
+  "lastName": "Van Rossum",
+  "email": "ggg@rossum.net",
+  "phoneNo": "45454546465",
+  "address": "Brisbane",
+  "age": "50",
+  "gender": "",
+  "bookingDateTime": {
+    "$date": "2021-11-03T01:15:00Z"
+  },
+  "bookingNotes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "617e96cedd51d41922ea1c2d"
+  },
+  "createdAt": {
+    "$date": "2021-10-31T13:10:36.643Z"
+  },
+  "doctor": {
+    "$oid": "617774623ec91945daf1ca2a"
+  },
+  "clinic": {
+    "$oid": "6177ceafb43a618f7aad9846"
+  },
+  "bookingId": "234567891",
+  "bookingType": "ECG",
+  "firstName": "Harry",
+  "lastName": "Potter",
+  "email": "harry@potter.com",
+  "phoneNo": "54545212",
+  "address": "Canberra",
+  "age": "30",
+  "gender": "Male",
+  "bookingDateTime": {
+    "$date": "2021-11-03T02:00:00Z"
+  },
+  "bookingNotes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "617e971cdd51d41922ea1c2e"
+  },
+  "createdAt": {
+    "$date": "2021-10-31T13:10:36.643Z"
+  },
+  "doctor": {
+    "$oid": "6177ae613ec91945daf1ca2b"
+  },
+  "clinic": {
+    "$oid": "6177ceafb43a618f7aad9846"
+  },
+  "bookingId": "345678912",
+  "bookingType": "Holter Off",
+  "firstName": "Ian",
+  "lastName": "Flemming",
+  "email": "ian@okay.com",
+  "phoneNo": "5454545",
+  "address": "Melbourne",
+  "age": "56",
+  "gender": "Male",
+  "bookingDateTime": {
+    "$date": "2021-11-04T03:20:00Z"
+  },
+  "bookingNotes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "617e976add51d41922ea1c2f"
+  },
+  "createdAt": {
+    "$date": "2021-10-31T13:10:36.643Z"
+  },
+  "doctor": {
+    "$oid": "6177b7923ec91945daf1ca2c"
+  },
+  "clinic": {
+    "$oid": "6177ceafb43a618f7aad9846"
+  },
+  "bookingId": "456789123",
+  "bookingType": "ABP Off",
+  "firstName": "Jessica",
+  "lastName": "Alba",
+  "email": "jess@alba.com",
+  "phoneNo": "454455565",
+  "address": "Sydney",
+  "age": "40",
+  "gender": "Female",
+  "bookingDateTime": {
+    "$date": "2021-11-05T04:15:00Z"
+  },
+  "bookingNotes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "617e97c3dd51d41922ea1c30"
+  },
+  "createdAt": {
+    "$date": "2021-10-31T13:10:36.643Z"
+  },
+  "doctor": {
+    "$oid": "617960722f8357bb152f83cd"
+  },
+  "clinic": {
+    "$oid": "6177ceafb43a618f7aad9846"
+  },
+  "bookingId": "567891234",
+  "bookingType": "CPAP Follow Up",
+  "firstName": "Kelly",
+  "lastName": "Evans",
+  "email": "kelly@evans.com",
+  "phoneNo": "678912343",
+  "address": "Alberta",
+  "age": "35",
+  "gender": "Female",
+  "bookingDateTime": {
+    "$date": "2021-11-03T05:20:00Z"
+  },
+  "bookingNotes": "",
+  "__v": 0
+}]

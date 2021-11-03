@@ -1,0 +1,13 @@
+[{
+  "_id": {
+    "$oid": "617773793ec91945daf1ca27"
+  },
+  "createdAt": {
+    "$date": "2021-10-26T03:16:47.454Z"
+  },
+  "firstName": "Satria",
+  "lastName": "Faestha",
+  "email": "info@admin.com",
+  "password": "$2a$10$RtuksJx2I4qqjo8FeIBSkuAFjRiSY8vUTVI5ZmncTTHM1mfCvqDJC",
+  "__v": 0
+}]

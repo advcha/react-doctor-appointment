@@ -1,0 +1,11 @@
+[{
+  "_id": {
+    "$oid": "617ff9a72853f08f80436f5c"
+  },
+  "createdAt": {
+    "$date": "2021-11-01T14:28:16.731Z"
+  },
+  "name": "Booking Type",
+  "nameValue": "Echo,ECG,Holter On,Holter Off",
+  "__v": 0
+}]
