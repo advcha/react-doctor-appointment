@@ -1,5 +1,4 @@
 import express from 'express';
-const router = express.Router();
 import {
   createDoctor,
   getDoctors,
@@ -10,8 +9,9 @@ import {
 
 import { protect } from '../middleware/authMiddleware.js';
 
+const router = express.Router();
 router.route('/').post(protect, createDoctor);
-//router.route('/').get(protect, getDoctors);
+// router.route('/').get(protect, getDoctors);
 router.route('/').get(getDoctors);
 router.route('/:id').delete(protect, deleteDoctor).put(protect, updateDoctor);
 router.route('/delete').post(protect, deleteMultiDoctors);

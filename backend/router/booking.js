@@ -1,5 +1,4 @@
 import express from 'express';
-const router = express.Router();
 import {
   createBooking,
   getBookings,
@@ -11,6 +10,7 @@ import {
 
 import { protect } from '../middleware/authMiddleware.js';
 
+const router = express.Router();
 router.route('/').post(protect, createBooking);
 router.route('/').get(protect, getBookings);
 router.route('/:id').get(getBookingsByClinic);
