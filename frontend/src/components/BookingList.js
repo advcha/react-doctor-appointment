@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import BookingCard from '../components/BookingCard';
 import BookingInfo from '../components/BookingInfo';
+import { fetchBookingsByClinic } from '../actions/bookingActions';
 import { fetchDoctors } from '../actions/doctorActions';
 import { fetchClinics } from '../actions/clinicActions';
 import moment from 'moment';
@@ -61,19 +62,42 @@ const BookingList = ({ idClinic, doctorSelected }) => {
   const [bookingSearch, setBookingSearch] = useState(initialState);
 
   const [open, setOpen] = useState(false);
+  const [searchFilter, setSearchFilter] = useState(false);
   const [bookingSelected, setBookingSelected] = useState([]);
 
   const bookings = useSelector((state) => {
     if (doctorSelected.length) {
-      const bookingFiltered = [];
+      const bookingDoctorFiltered = [];
       state.bookings.filter(b => {
         doctorSelected.map(d => {
           if (d == b.doctor._id) {
-            bookingFiltered.push(b);
+            bookingDoctorFiltered.push(b);
           }
         });
       });
-      return bookingFiltered;
+      if (searchFilter && bookingDoctorFiltered) {
+        if (bookingSearch.search2 == 'bookingId') {
+          const bookingFiltered = bookingDoctorFiltered.filter(b => {
+            return b.bookingId.includes(bookingSearch.search3);
+          });
+
+          return bookingFiltered;
+        } else if (bookingSearch.search2 == 'firstName') {
+          const bookingFiltered = bookingDoctorFiltered.filter(b => {
+            return b.firstName.toLowerCase().includes(bookingSearch.search3.toLowerCase());
+          });
+
+          return bookingFiltered;
+        } else if (bookingSearch.search2 == 'lastName') {
+          const bookingFiltered = bookingDoctorFiltered.filter(b => {
+            return b.lastName.toLowerCase().includes(bookingSearch.search3.toLowerCase());
+          });
+
+          return bookingFiltered;
+        }
+      }else{
+        return bookingDoctorFiltered;
+      }
     } else {
       //return state.bookings;
       return [];
@@ -102,7 +126,13 @@ const BookingList = ({ idClinic, doctorSelected }) => {
 
   const searchBooking = (e) => {
     e.preventDefault();
-    alert('ok');
+    if (bookingSearch.search3) {
+      setSearchFilter(true);
+      dispatch(fetchBookingsByClinic(idClinic));
+      //setSearchFilter(false);
+    } else {
+      setSearchFilter(false);
+    }
   };
 
   useState(() => {
@@ -148,9 +178,10 @@ const BookingList = ({ idClinic, doctorSelected }) => {
               defaultValue={bookingSearch.search1}
               value={bookingSearch.search1}
               className={classes.inputSearch}
-              onChange={(e) =>
-                setBookingSearch({ ...bookingSearch, search1: e.target.value })
-              }
+              onChange={(e) => {
+                setSearchFilter(false);
+                setBookingSearch({ ...bookingSearch, search1: e.target.value });
+              }}
             >
               <MenuItem key={0} value='bookingDateTime'>
                 Time
@@ -166,9 +197,10 @@ const BookingList = ({ idClinic, doctorSelected }) => {
               defaultValue={bookingSearch.search2}
               value={bookingSearch.search2}
               className={classes.inputSearch}
-              onChange={(e) =>
-                setBookingSearch({ ...bookingSearch, search2: e.target.value })
-              }
+              onChange={(e) => {
+                setSearchFilter(false);
+                setBookingSearch({ ...bookingSearch, search2: e.target.value });
+              }}
             >
               <MenuItem key={0} value='firstName'>
                 First Name
@@ -195,10 +227,20 @@ const BookingList = ({ idClinic, doctorSelected }) => {
               id='textSearch'
               placeholder='Search'
               type='text'
-              value=''
+              value={bookingSearch.search3}
               className={classes.inputSearch}
+              onChange={(e) => {
+                setSearchFilter(false);
+                setBookingSearch({ ...bookingSearch, search3: e.target.value });
+              }}
             />
-            <Button color='primary' className={classes.buttonSearch} onClick={searchBooking}>
+            <Button 
+              color='primary' 
+              className={classes.buttonSearch} 
+              onClick={(e) => {
+                searchBooking(e);
+              }}
+            >
               Search
             </Button>
           </Grid>
