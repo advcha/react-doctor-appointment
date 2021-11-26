@@ -61,6 +61,11 @@ const BookingList = ({ idClinic, doctorSelected }) => {
   const [searchFilter, setSearchFilter] = useState(false);
   const [bookingSelected, setBookingSelected] = useState([]);
 
+  useState(() => {
+    dispatch(fetchDoctors());
+    dispatch(fetchClinics());
+  }, [dispatch]);
+
   const bookings = useSelector((state) => {
     if (doctorSelected.length) {
       const bookingDoctorFiltered = [];
@@ -128,11 +133,6 @@ const BookingList = ({ idClinic, doctorSelected }) => {
       setSearchFilter(false);
     }
   };
-
-  useState(() => {
-    dispatch(fetchDoctors());
-    dispatch(fetchClinics());
-  }, [dispatch]);
 
   return (
     <>
