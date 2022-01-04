@@ -48,7 +48,7 @@ const Header = (userInfo) => {
       <AppBar position='static' className={classes.appTitle} style={{ marginTop: '20px' }}>
         <Toolbar>
           <Link to='/'>
-          <img src={logo} height='48' className='d-inline-block align-center' alt='logo' />
+            <img src={logo} height='48' className='d-inline-block align-center' alt='logo' />
           </Link>
           <Typography variant='h6' className={classes.title}>
             Doctor Appointment

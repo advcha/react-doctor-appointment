@@ -55,7 +55,8 @@ const BookingList = ({ idClinic, doctorSelected }) => {
     search3: '',
   };
 
-  const [bookingSearch, setBookingSearch] = useState(initialState);
+  //const [bookingSearch, setBookingSearch] = useState(initialState); // run every dom update?
+  const [bookingSearch, setBookingSearch] = useState(() => initialState); // run once. faster!
 
   const [open, setOpen] = useState(false);
   const [searchFilter, setSearchFilter] = useState(false);

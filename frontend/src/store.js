@@ -16,6 +16,8 @@ const reducers = combineReducers({
   userLogin: authReducer,
 });
 
+const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 25});
+
 const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null;
@@ -29,7 +31,8 @@ const middleware = [thunk];
 const store = createStore(
   reducers,
   initialState,
-  composeWithDevTools(applyMiddleware(...middleware))
+  composeEnhancers(applyMiddleware(...middleware))
+  /*composeWithDevTools(applyMiddleware(...middleware))*/
 );
 
 export default store;
